@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cielo 스토리 자동 게시 순서</title>
+<style>
+  :root{ --cielo:#c98a6a; --bg:#faf6f3; --card:#fff; --ink:#2b2320; --muted:#9b8a80; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:26px 20px 14px;text-align:center;background:linear-gradient(180deg,#fff,transparent)}
+  h1{margin:0 0 6px;font-size:21px}
+  .sub{color:var(--muted);font-size:13px}
+  .nav{margin-top:8px;font-size:13px}
+  .nav a{color:var(--cielo);text-decoration:none;font-weight:600}
+  .stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0 0}
+  .stat{background:var(--card);border:1px solid #eee;border-radius:12px;padding:7px 13px;font-size:13px}
+  .stat b{color:var(--cielo);font-size:16px}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;position:relative}
+  .thumb{position:relative;aspect-ratio:9/16;background:#f0e9e4;overflow:hidden}
+  .thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
+  .seq{position:absolute;top:7px;left:7px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:700}
+  .typ{position:absolute;top:7px;right:7px;background:rgba(255,255,255,.92);color:#5a4a42;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+  .vid .typ{background:var(--cielo);color:#fff}
+  .loading{text-align:center;padding:40px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Cielo 스토리 자동 게시 순서</h1>
+  <div class="sub">@cielobeauty.ae · 매일 두바이 10:00 & 16:00 (한국 15시·21시) · 위에서부터 순서대로 하루 2개</div>
+  <div class="nav"><a href="./index.html">→ 피드 게시 일정 보기</a></div>
+  <div class="stats" id="stats"></div>
+</header>
+<div class="wrap">
+  <div id="grid" class="grid"><div class="loading">불러오는 중…</div></div>
+</div>
+<script>
+const RAW='./';
+fetch('./manifest_stories.json?v='+Date.now()).then(r=>r.json()).then(data=>{
+  data.sort((a,b)=>a.seq-b.seq);
+  const ph=data.filter(e=>e.type==='photo').length, vd=data.filter(e=>e.type==='video').length;
+  document.getElementById('stats').innerHTML =
+    `<div class="stat">전체 <b>${data.length}</b></div>`+
+    `<div class="stat">사진 <b>${ph}</b></div>`+
+    `<div class="stat">영상 <b>${vd}</b></div>`+
+    `<div class="stat">≈ <b>${Math.ceil(data.length/2)}</b>일치 (하루 2개)</div>`;
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  data.forEach(e=>{
+    const isVid = e.type==='video';
+    const thumb = isVid
+      ? `<video src="${RAW+e.media}#t=0.1" muted playsinline preload="metadata"></video>`
+      : `<img loading="lazy" src="${RAW+e.media}" alt="">`;
+    const d=document.createElement('div');
+    d.className='card'+(isVid?' vid':'');
+    d.innerHTML=`<div class="thumb">${thumb}<span class="seq">#${e.seq}</span><span class="typ">${isVid?'영상':'사진'}</span></div>`;
+    grid.appendChild(d);
+  });
+}).catch(err=>{ document.getElementById('grid').innerHTML='<div class="loading">불러오기 실패: '+err+'</div>'; });
+</script>
+</body>
+</html>
