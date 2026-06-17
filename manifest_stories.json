@@ -185,11 +185,6 @@
         "media":  "stories/037.png"
     },
     {
-        "seq":  38,
-        "type":  "photo",
-        "media":  "stories/038.png"
-    },
-    {
         "seq":  39,
         "type":  "photo",
         "media":  "stories/039.png"
@@ -475,11 +470,6 @@
         "media":  "stories/095.png"
     },
     {
-        "seq":  96,
-        "type":  "video",
-        "media":  "stories/096.mp4"
-    },
-    {
         "seq":  97,
         "type":  "photo",
         "media":  "stories/097.png"
@@ -600,11 +590,6 @@
         "media":  "stories/120.png"
     },
     {
-        "seq":  121,
-        "type":  "photo",
-        "media":  "stories/121.png"
-    },
-    {
         "seq":  122,
         "type":  "photo",
         "media":  "stories/122.png"
@@ -663,10 +648,5 @@
         "seq":  134,
         "type":  "photo",
         "media":  "stories/134.png"
-    },
-    {
-        "seq":  135,
-        "type":  "photo",
-        "media":  "stories/135.png"
     }
 ]
