@@ -30,11 +30,6 @@
         "media":  "stories/006.png"
     },
     {
-        "seq":  7,
-        "type":  "photo",
-        "media":  "stories/007.png"
-    },
-    {
         "seq":  8,
         "type":  "photo",
         "media":  "stories/008.png"
@@ -88,11 +83,6 @@
         "seq":  18,
         "type":  "photo",
         "media":  "stories/018.png"
-    },
-    {
-        "seq":  19,
-        "type":  "photo",
-        "media":  "stories/019.png"
     },
     {
         "seq":  20,
@@ -325,11 +315,6 @@
         "media":  "stories/066.png"
     },
     {
-        "seq":  67,
-        "type":  "photo",
-        "media":  "stories/067.png"
-    },
-    {
         "seq":  68,
         "type":  "photo",
         "media":  "stories/068.png"
@@ -523,11 +508,6 @@
         "seq":  107,
         "type":  "photo",
         "media":  "stories/107.png"
-    },
-    {
-        "seq":  108,
-        "type":  "photo",
-        "media":  "stories/108.png"
     },
     {
         "seq":  109,
