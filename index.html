@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cielo 자동 게시 일정</title>
+<style>
+  :root{ --cielo:#c98a6a; --bg:#faf6f3; --card:#fff; --ink:#2b2320; --muted:#9b8a80; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:28px 20px 18px;text-align:center;background:linear-gradient(180deg,#fff,transparent)}
+  h1{margin:0 0 6px;font-size:22px;letter-spacing:.5px}
+  .sub{color:var(--muted);font-size:13px}
+  .stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 4px}
+  .stat{background:var(--card);border:1px solid #eee;border-radius:12px;padding:8px 14px;font-size:13px}
+  .stat b{color:var(--cielo);font-size:16px}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid #eee;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+  .card.today{outline:2px solid var(--cielo);outline-offset:-2px}
+  .thumb{position:relative;aspect-ratio:1/1;background:#f0e9e4;overflow:hidden}
+  .thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
+  .badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.62);color:#fff;font-size:11px;padding:3px 8px;border-radius:20px}
+  .badge.today{background:var(--cielo)}
+  .typ{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.92);color:#5a4a42;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600}
+  .meta{padding:10px 12px}
+  .date{font-weight:700;font-size:14px}
+  .dleft{color:var(--muted);font-size:12px;margin-left:6px;font-weight:400}
+  .cap{color:#6b5b52;font-size:12px;margin-top:5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
+  a.card{text-decoration:none;color:inherit}
+  .loading{text-align:center;padding:40px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Cielo 자동 게시 일정</h1>
+  <div class="sub">@cielobeauty.ae · 매일 두바이 14:00 (한국 19:00) 자동 게시</div>
+  <div class="stats" id="stats"></div>
+</header>
+<div class="wrap">
+  <div id="grid" class="grid"><div class="loading">불러오는 중…</div></div>
+</div>
+<script>
+const RAW = './';
+const typLabel = {photo:'사진', carousel:'캐러셀', reel:'릴스'};
+function todayStr(){
+  // Dubai = UTC+4
+  const now = new Date();
+  const d = new Date(now.getTime() + (4*60 - (-now.getTimezoneOffset())) * 0); // display uses local; compare by date string in Dubai
+  const dubai = new Date(now.toLocaleString('en-US',{timeZone:'Asia/Dubai'}));
+  return dubai.toISOString().slice(0,10);
+}
+function dleft(dateStr, today){
+  const a = new Date(dateStr+'T00:00:00Z'), b = new Date(today+'T00:00:00Z');
+  const diff = Math.round((a-b)/86400000);
+  if(diff===0) return '오늘';
+  if(diff<0) return '게시됨';
+  return 'D-'+diff;
+}
+fetch('./manifest.json?v='+Date.now()).then(r=>r.json()).then(data=>{
+  data.sort((x,y)=>x.date.localeCompare(y.date));
+  const today = todayStr();
+  const c = {photo:0,carousel:0,reel:0};
+  data.forEach(e=>c[e.type]++);
+  document.getElementById('stats').innerHTML =
+    `<div class="stat"><b>${data.length}</b> 게시물</div>`+
+    `<div class="stat">${data[0].date} ~ ${data[data.length-1].date}</div>`+
+    `<div class="stat">사진 <b>${c.photo}</b></div>`+
+    `<div class="stat">릴스 <b>${c.reel}</b></div>`+
+    `<div class="stat">캐러셀 <b>${c.carousel}</b></div>`;
+  const grid = document.getElementById('grid');
+  grid.innerHTML='';
+  data.forEach(e=>{
+    const isToday = e.date===today;
+    const first = e.media[0];
+    const isVid = /\.mp4$/i.test(first);
+    const thumb = isVid
+      ? `<video src="${RAW+first}#t=0.1" muted playsinline preload="metadata"></video>`
+      : `<img loading="lazy" src="${RAW+first}" alt="">`;
+    const typ = e.type==='carousel' ? `캐러셀 ${e.media.length}장` : typLabel[e.type];
+    const cap = (e.caption||'').split('\n')[0];
+    const dl = dleft(e.date, today);
+    const a = document.createElement('a');
+    a.className = 'card'+(isToday?' today':'');
+    a.href = 'https://www.instagram.com/p/'+e.code+'/';
+    a.target = '_blank'; a.rel='noopener';
+    a.innerHTML =
+      `<div class="thumb">${thumb}`+
+      `<span class="badge${isToday?' today':''}">#${e.seq} · ${dl}</span>`+
+      `<span class="typ">${typ}</span></div>`+
+      `<div class="meta"><span class="date">${e.date}</span>`+
+      `<div class="cap">${cap.replace(/</g,'&lt;')}</div></div>`;
+    grid.appendChild(a);
+  });
+}).catch(err=>{
+  document.getElementById('grid').innerHTML='<div class="loading">불러오기 실패: '+err+'</div>';
+});
+</script>
+</body>
+</html>
