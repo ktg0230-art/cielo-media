@@ -307,370 +307,360 @@
     {
         "seq":  62,
         "type":  "photo",
-        "media":  "stories/128.png"
-    },
-    {
-        "seq":  63,
-        "type":  "photo",
         "media":  "stories/031.png"
     },
     {
-        "seq":  64,
+        "seq":  63,
         "type":  "video",
         "media":  "stories/v109.mp4"
     },
     {
-        "seq":  65,
+        "seq":  64,
         "type":  "photo",
         "media":  "stories/112.png"
     },
     {
-        "seq":  66,
+        "seq":  65,
         "type":  "video",
         "media":  "stories/v080.mp4"
     },
     {
-        "seq":  67,
+        "seq":  66,
         "type":  "photo",
         "media":  "stories/075.png"
     },
     {
-        "seq":  68,
+        "seq":  67,
         "type":  "photo",
         "media":  "stories/046.png"
     },
     {
-        "seq":  69,
+        "seq":  68,
         "type":  "photo",
         "media":  "stories/056.png"
     },
     {
-        "seq":  70,
+        "seq":  69,
         "type":  "photo",
         "media":  "stories/058.png"
     },
     {
-        "seq":  71,
+        "seq":  70,
         "type":  "photo",
         "media":  "stories/059.png"
     },
     {
-        "seq":  72,
+        "seq":  71,
         "type":  "photo",
         "media":  "stories/065.png"
     },
     {
-        "seq":  73,
+        "seq":  72,
         "type":  "photo",
         "media":  "stories/110.png"
     },
     {
-        "seq":  74,
+        "seq":  73,
         "type":  "photo",
         "media":  "stories/039.png"
     },
     {
-        "seq":  75,
+        "seq":  74,
         "type":  "video",
         "media":  "stories/hs009.mp4"
     },
     {
-        "seq":  76,
+        "seq":  75,
         "type":  "photo",
         "media":  "stories/043.png"
     },
     {
-        "seq":  77,
+        "seq":  76,
         "type":  "photo",
         "media":  "stories/047.png"
     },
     {
-        "seq":  78,
+        "seq":  77,
         "type":  "video",
         "media":  "stories/hs005.mp4"
     },
     {
-        "seq":  79,
+        "seq":  78,
         "type":  "video",
         "media":  "stories/v106.mov"
     },
     {
-        "seq":  80,
+        "seq":  79,
         "type":  "photo",
         "media":  "stories/118.png"
     },
     {
-        "seq":  81,
+        "seq":  80,
         "type":  "video",
         "media":  "stories/hs016.mov"
     },
     {
-        "seq":  82,
+        "seq":  81,
         "type":  "photo",
         "media":  "stories/055.png"
     },
     {
-        "seq":  83,
-        "type":  "photo",
-        "media":  "stories/049.png"
-    },
-    {
-        "seq":  84,
+        "seq":  82,
         "type":  "video",
         "media":  "stories/hs013.m4v"
     },
     {
-        "seq":  85,
+        "seq":  83,
         "type":  "photo",
         "media":  "stories/057.png"
     },
     {
-        "seq":  86,
+        "seq":  84,
         "type":  "photo",
         "media":  "stories/054.png"
     },
     {
-        "seq":  87,
+        "seq":  85,
         "type":  "photo",
         "media":  "stories/073.png"
     },
     {
-        "seq":  88,
+        "seq":  86,
         "type":  "photo",
         "media":  "stories/042.png"
     },
     {
-        "seq":  89,
+        "seq":  87,
         "type":  "photo",
         "media":  "stories/124.png"
     },
     {
-        "seq":  90,
+        "seq":  88,
         "type":  "photo",
         "media":  "stories/094.png"
     },
     {
-        "seq":  91,
+        "seq":  89,
         "type":  "video",
         "media":  "stories/hs008.mp4"
     },
     {
-        "seq":  92,
+        "seq":  90,
         "type":  "photo",
         "media":  "stories/062.png"
     },
     {
-        "seq":  93,
+        "seq":  91,
         "type":  "video",
         "media":  "stories/hs022.mov"
     },
     {
-        "seq":  94,
+        "seq":  92,
         "type":  "video",
         "media":  "stories/hs021.mov"
     },
     {
-        "seq":  95,
+        "seq":  93,
         "type":  "photo",
         "media":  "stories/090.png"
     },
     {
-        "seq":  96,
+        "seq":  94,
         "type":  "photo",
         "media":  "stories/116.png"
     },
     {
-        "seq":  97,
+        "seq":  95,
         "type":  "photo",
         "media":  "stories/081.png"
     },
     {
-        "seq":  98,
+        "seq":  96,
         "type":  "photo",
         "media":  "stories/063.png"
     },
     {
-        "seq":  99,
+        "seq":  97,
         "type":  "photo",
         "media":  "stories/005.png"
     },
     {
-        "seq":  100,
+        "seq":  98,
         "type":  "photo",
         "media":  "stories/105.png"
     },
     {
-        "seq":  101,
+        "seq":  99,
         "type":  "photo",
         "media":  "stories/029.png"
     },
     {
-        "seq":  102,
+        "seq":  100,
         "type":  "photo",
         "media":  "stories/027.jpg"
     },
     {
-        "seq":  103,
+        "seq":  101,
         "type":  "photo",
         "media":  "stories/052.png"
     },
     {
-        "seq":  104,
+        "seq":  102,
         "type":  "photo",
         "media":  "stories/015.png"
     },
     {
-        "seq":  105,
+        "seq":  103,
         "type":  "photo",
         "media":  "stories/010.png"
     },
     {
-        "seq":  106,
+        "seq":  104,
         "type":  "photo",
         "media":  "stories/012.png"
     },
     {
-        "seq":  107,
+        "seq":  105,
         "type":  "photo",
         "media":  "stories/033.png"
     },
     {
-        "seq":  108,
+        "seq":  106,
         "type":  "photo",
         "media":  "stories/011.png"
     },
     {
-        "seq":  109,
+        "seq":  107,
         "type":  "photo",
         "media":  "stories/072.png"
     },
     {
-        "seq":  110,
+        "seq":  108,
         "type":  "photo",
         "media":  "stories/023.png"
     },
     {
-        "seq":  111,
+        "seq":  109,
         "type":  "photo",
         "media":  "stories/087.png"
     },
     {
-        "seq":  112,
+        "seq":  110,
         "type":  "photo",
         "media":  "stories/085.png"
     },
     {
-        "seq":  113,
+        "seq":  111,
         "type":  "photo",
         "media":  "stories/022.png"
     },
     {
-        "seq":  114,
+        "seq":  112,
         "type":  "photo",
         "media":  "stories/126.png"
     },
     {
-        "seq":  115,
+        "seq":  113,
         "type":  "photo",
         "media":  "stories/095.png"
     },
     {
-        "seq":  116,
+        "seq":  114,
         "type":  "photo",
         "media":  "stories/037.png"
     },
     {
-        "seq":  117,
+        "seq":  115,
         "type":  "photo",
         "media":  "stories/113.png"
     },
     {
-        "seq":  118,
+        "seq":  116,
         "type":  "photo",
         "media":  "stories/131.png"
     },
     {
-        "seq":  119,
+        "seq":  117,
         "type":  "photo",
         "media":  "stories/053.png"
     },
     {
-        "seq":  120,
+        "seq":  118,
         "type":  "video",
         "media":  "stories/hs002.mp4"
     },
     {
-        "seq":  121,
+        "seq":  119,
         "type":  "photo",
         "media":  "stories/119.png"
     },
     {
-        "seq":  122,
+        "seq":  120,
         "type":  "photo",
         "media":  "stories/117.png"
     },
     {
-        "seq":  123,
+        "seq":  121,
         "type":  "photo",
         "media":  "stories/132.png"
     },
     {
-        "seq":  124,
+        "seq":  122,
         "type":  "photo",
         "media":  "stories/093.png"
     },
     {
-        "seq":  125,
+        "seq":  123,
         "type":  "photo",
         "media":  "stories/122.png"
     },
     {
-        "seq":  126,
+        "seq":  124,
         "type":  "photo",
         "media":  "stories/018.png"
     },
     {
-        "seq":  127,
+        "seq":  125,
         "type":  "photo",
         "media":  "stories/006.png"
     },
     {
-        "seq":  128,
+        "seq":  126,
         "type":  "photo",
         "media":  "stories/071.png"
     },
     {
-        "seq":  129,
+        "seq":  127,
         "type":  "photo",
         "media":  "stories/098.png"
     },
     {
-        "seq":  130,
+        "seq":  128,
         "type":  "photo",
         "media":  "stories/123.png"
     },
     {
-        "seq":  131,
+        "seq":  129,
         "type":  "photo",
         "media":  "stories/051.png"
     },
     {
-        "seq":  132,
+        "seq":  130,
         "type":  "photo",
         "media":  "stories/097.png"
     },
     {
-        "seq":  133,
+        "seq":  131,
         "type":  "photo",
         "media":  "stories/068.png"
     },
     {
-        "seq":  134,
+        "seq":  132,
         "type":  "photo",
         "media":  "stories/114.png"
     },
     {
-        "seq":  135,
+        "seq":  133,
         "type":  "photo",
         "media":  "stories/134.png"
     }
