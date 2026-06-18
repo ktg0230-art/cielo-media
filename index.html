@@ -3,103 +3,120 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cielo 자동 게시 일정</title>
+<title>Cielo 자동 게시 현황</title>
 <style>
   :root{ --cielo:#c98a6a; --bg:#faf6f3; --card:#fff; --ink:#2b2320; --muted:#9b8a80; --done:#4a9d6b; }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink)}
-  header{padding:28px 20px 18px;text-align:center;background:linear-gradient(180deg,#fff,transparent)}
-  h1{margin:0 0 6px;font-size:22px;letter-spacing:.5px}
+  header{padding:24px 20px 10px;text-align:center;background:linear-gradient(180deg,#fff,transparent)}
+  h1{margin:0 0 4px;font-size:21px}
   .sub{color:var(--muted);font-size:13px}
-  .stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 4px}
-  .stat{background:var(--card);border:1px solid #eee;border-radius:12px;padding:8px 14px;font-size:13px}
+  .tabs{display:flex;gap:8px;justify-content:center;margin:16px 0 6px}
+  .tab{background:#fff;border:1px solid #e7ddd6;color:#6b5b52;font-size:14px;font-weight:700;padding:9px 20px;border-radius:24px;cursor:pointer}
+  .tab.active{background:var(--cielo);color:#fff;border-color:var(--cielo)}
+  .stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0 2px}
+  .stat{background:var(--card);border:1px solid #eee;border-radius:12px;padding:7px 13px;font-size:13px}
   .stat b{font-size:16px}
   .stat.done b{color:var(--done)} .stat.today b{color:var(--cielo)} .stat.wait b{color:var(--muted)}
-  .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:10px 0 0;font-size:12px;color:var(--muted)}
+  .legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:8px 0 0;font-size:12px;color:var(--muted)}
   .legend span{display:inline-flex;align-items:center;gap:5px}
   .dot{width:10px;height:10px;border-radius:50%}
-  .wrap{max-width:1100px;margin:0 auto;padding:16px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
-  .card{background:var(--card);border:1px solid #eee;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s;position:relative}
-  .card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+  .wrap{max-width:1100px;margin:0 auto;padding:14px}
+  .grid{display:grid;gap:12px}
+  .grid.feed{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+  .grid.story{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+  a.card{text-decoration:none;color:inherit}
   .card.today{outline:3px solid var(--cielo);outline-offset:-3px}
   .card.done .thumb img,.card.done .thumb video{filter:grayscale(.15) brightness(.97)}
-  .card.done::after{content:"✅ 게시완료";position:absolute;top:0;left:0;right:0;background:var(--done);color:#fff;font-size:12px;font-weight:700;text-align:center;padding:5px}
+  .card.done::after{content:"✅ 게시완료";position:absolute;top:0;left:0;right:0;background:var(--done);color:#fff;font-size:12px;font-weight:700;text-align:center;padding:5px;z-index:1}
   .card.done .thumb{margin-top:28px}
-  .thumb{position:relative;aspect-ratio:1/1;background:#f0e9e4;overflow:hidden}
+  .thumb{position:relative;background:#f0e9e4;overflow:hidden}
+  .feed .thumb{aspect-ratio:1/1}
+  .story .thumb{aspect-ratio:9/16}
   .thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
   .badge{position:absolute;top:8px;left:8px;color:#fff;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700}
-  .badge.today{background:var(--cielo)} .badge.wait{background:rgba(0,0,0,.6)}
+  .badge.today{background:var(--cielo)} .badge.wait{background:rgba(0,0,0,.6)} .badge.seq{background:rgba(0,0,0,.6)}
   .typ{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.92);color:#5a4a42;font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600}
-  .meta{padding:10px 12px}
+  .vid .typ{background:var(--cielo);color:#fff}
+  .meta{padding:9px 11px}
   .date{font-weight:700;font-size:14px}
-  .cap{color:#6b5b52;font-size:12px;margin-top:5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
-  a.card{text-decoration:none;color:inherit}
+  .cap{color:#6b5b52;font-size:12px;margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:33px}
   .loading{text-align:center;padding:40px;color:var(--muted)}
+  .hidden{display:none}
 </style>
 </head>
 <body>
 <header>
-  <h1>Cielo 자동 게시 일정</h1>
-  <div class="sub">@cielobeauty.ae · 매일 두바이 14:00 (한국 19:00) 자동 게시</div>
-  <div style="margin-top:8px;font-size:13px"><a href="./stories.html" style="color:#c98a6a;text-decoration:none;font-weight:600">→ 스토리 게시 순서 보기</a></div>
-  <div class="stats" id="stats"></div>
-  <div class="legend">
-    <span><i class="dot" style="background:#4a9d6b"></i> 게시완료(올림)</span>
-    <span><i class="dot" style="background:#c98a6a"></i> 오늘</span>
-    <span><i class="dot" style="background:#9b8a80"></i> 예정(D-N, 아직 안 올림)</span>
+  <h1>Cielo 자동 게시 현황</h1>
+  <div class="sub">@cielobeauty.ae · 피드 매일 14:00 · 스토리 매일 10:00 & 16:00 (두바이)</div>
+  <div class="tabs">
+    <button class="tab active" id="tabFeed" onclick="show('feed')">📅 피드 일정</button>
+    <button class="tab" id="tabStory" onclick="show('story')">📸 스토리 순서</button>
   </div>
 </header>
 <div class="wrap">
-  <div id="grid" class="grid"><div class="loading">불러오는 중…</div></div>
+  <div id="feedView">
+    <div class="stats" id="feedStats"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:#4a9d6b"></i> 게시완료</span>
+      <span><i class="dot" style="background:#c98a6a"></i> 오늘</span>
+      <span><i class="dot" style="background:#9b8a80"></i> 예정(D-N)</span>
+    </div>
+    <div id="feedGrid" class="grid feed"><div class="loading">불러오는 중…</div></div>
+  </div>
+  <div id="storyView" class="hidden">
+    <div class="stats" id="storyStats"></div>
+    <div class="legend"><span>위에서부터 순서대로 하루 2개(10시·16시)씩 게시 · 진행상황은 텔레그램 알림으로 확인</span></div>
+    <div id="storyGrid" class="grid story"><div class="loading">불러오는 중…</div></div>
+  </div>
 </div>
 <script>
-const RAW = './';
-const typLabel = {photo:'사진', carousel:'캐러셀', reel:'릴스'};
-function dubaiToday(){
-  return new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Dubai'})).toISOString().slice(0,10);
+const RAW='./';
+function dubaiToday(){ return new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Dubai'})).toISOString().slice(0,10); }
+function show(which){
+  document.getElementById('feedView').classList.toggle('hidden', which!=='feed');
+  document.getElementById('storyView').classList.toggle('hidden', which!=='story');
+  document.getElementById('tabFeed').classList.toggle('active', which==='feed');
+  document.getElementById('tabStory').classList.toggle('active', which==='story');
 }
+// FEED
 fetch('./manifest.json?v='+Date.now()).then(r=>r.json()).then(data=>{
-  data.sort((x,y)=>x.date.localeCompare(y.date));
-  const today = dubaiToday();
-  let done=0, wait=0, todayN=0;
-  const grid = document.getElementById('grid');
-  grid.innerHTML='';
+  data.sort((a,b)=>a.date.localeCompare(b.date));
+  const today=dubaiToday(); let done=0,wait=0,todayN=0;
+  const typLabel={photo:'사진',carousel:'캐러셀',reel:'릴스'};
+  const grid=document.getElementById('feedGrid'); grid.innerHTML='';
   data.forEach(e=>{
-    let status; // done / today / wait
-    if(e.date < today) status='done';
-    else if(e.date === today){ status='today'; }
-    else status='wait';
-    if(status==='done') done++; else if(status==='today') todayN++; else wait++;
-    const first = e.media[0];
-    const isVid = /\.mp4$/i.test(first);
-    const thumb = isVid
-      ? `<video src="${RAW+first}#t=0.1" muted playsinline preload="metadata"></video>`
-      : `<img loading="lazy" src="${RAW+first}" alt="">`;
-    const typ = e.type==='carousel' ? `캐러셀 ${e.media.length}장` : typLabel[e.type];
-    const cap = (e.caption||'').split('\n')[0];
-    const a = document.createElement('a');
-    a.className = 'card '+status;
-    a.href = 'https://www.instagram.com/p/'+e.code+'/';
-    a.target = '_blank'; a.rel='noopener';
+    let status = e.date<today?'done':(e.date===today?'today':'wait');
+    if(status==='done')done++; else if(status==='today')todayN++; else wait++;
+    const first=e.media[0], isVid=/\.mp4$/i.test(first);
+    const thumb=isVid?`<video src="${RAW+first}#t=0.1" muted playsinline preload="metadata"></video>`:`<img loading="lazy" src="${RAW+first}">`;
+    const typ=e.type==='carousel'?`캐러셀 ${e.media.length}장`:typLabel[e.type];
     let badge;
-    if(status==='today') badge='<span class="badge today">#'+e.seq+' · 오늘</span>';
-    else if(status==='wait'){ const d=Math.round((new Date(e.date+'T00:00:00Z')-new Date(today+'T00:00:00Z'))/86400000); badge='<span class="badge wait">#'+e.seq+' · D-'+d+'</span>'; }
+    if(status==='today')badge='<span class="badge today">#'+e.seq+' · 오늘</span>';
+    else if(status==='wait'){const d=Math.round((new Date(e.date+'T00:00:00Z')-new Date(today+'T00:00:00Z'))/86400000);badge='<span class="badge wait">#'+e.seq+' · D-'+d+'</span>';}
     else badge='<span class="badge wait" style="background:rgba(74,157,107,.85)">#'+e.seq+'</span>';
-    a.innerHTML =
-      `<div class="thumb">${thumb}${badge}<span class="typ">${typ}</span></div>`+
-      `<div class="meta"><span class="date">${e.date}</span>`+
-      `<div class="cap">${cap.replace(/</g,'&lt;')}</div></div>`;
+    const cap=(e.caption||'').split('\n')[0];
+    const a=document.createElement('a'); a.className='card '+status; a.href='https://www.instagram.com/p/'+e.code+'/'; a.target='_blank'; a.rel='noopener';
+    a.innerHTML=`<div class="thumb">${thumb}${badge}<span class="typ">${typ}</span></div><div class="meta"><span class="date">${e.date}</span><div class="cap">${cap.replace(/</g,'&lt;')}</div></div>`;
     grid.appendChild(a);
   });
-  document.getElementById('stats').innerHTML =
-    `<div class="stat done">✅ 게시완료 <b>${done}</b></div>`+
-    `<div class="stat today">오늘 <b>${todayN}</b></div>`+
-    `<div class="stat wait">⏳ 남음 <b>${wait}</b></div>`+
-    `<div class="stat">전체 <b>${data.length}</b> · ~${data[data.length-1].date}</div>`;
-}).catch(err=>{
-  document.getElementById('grid').innerHTML='<div class="loading">불러오기 실패: '+err+'</div>';
-});
+  document.getElementById('feedStats').innerHTML=`<div class="stat done">✅ 완료 <b>${done}</b></div><div class="stat today">오늘 <b>${todayN}</b></div><div class="stat wait">⏳ 남음 <b>${wait}</b></div><div class="stat">전체 <b>${data.length}</b></div>`;
+}).catch(e=>document.getElementById('feedGrid').innerHTML='<div class="loading">피드 불러오기 실패</div>');
+// STORY
+fetch('./manifest_stories.json?v='+Date.now()).then(r=>r.json()).then(data=>{
+  data.sort((a,b)=>a.seq-b.seq);
+  const ph=data.filter(e=>e.type==='photo').length, vd=data.filter(e=>e.type==='video').length;
+  const grid=document.getElementById('storyGrid'); grid.innerHTML='';
+  data.forEach(e=>{
+    const isVid=e.type==='video';
+    const thumb=isVid?`<video src="${RAW+e.media}#t=0.1" muted playsinline preload="metadata"></video>`:`<img loading="lazy" src="${RAW+e.media}">`;
+    const d=document.createElement('div'); d.className='card'+(isVid?' vid':'');
+    d.innerHTML=`<div class="thumb">${thumb}<span class="badge seq">#${e.seq}</span><span class="typ">${isVid?'영상':'사진'}</span></div>`;
+    grid.appendChild(d);
+  });
+  document.getElementById('storyStats').innerHTML=`<div class="stat">전체 <b>${data.length}</b></div><div class="stat">사진 <b>${ph}</b></div><div class="stat">영상 <b>${vd}</b></div><div class="stat">≈ <b>${Math.ceil(data.length/2)}</b>일치</div>`;
+}).catch(e=>document.getElementById('storyGrid').innerHTML='<div class="loading">스토리 불러오기 실패</div>');
 </script>
 </body>
 </html>
