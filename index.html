@@ -60,17 +60,17 @@ function bigSlot(item,date,hh,lab,kind){
 }
 var dt0=new Date(today+'T00:00:00');
 document.getElementById('dateline').innerHTML=today.replace(/-/g,'.')+' ('+wd[dt0.getDay()]+') · 두바이 기준';
-var fdDone=FD.filter(function(e){return st(e.date,14)[0]==='done';}).length;
-var sdDone=SD.filter(function(e){return st(e.date,e.slot==='am'?10:16)[0]==='done';}).length;
+var fdDone=FD.filter(function(e){return st(e.date,13)[0]==='done';}).length;
+var sdDone=SD.filter(function(e){return st(e.date,e.slot==='am'?11:17)[0]==='done';}).length;
 document.getElementById('prog').innerHTML='지금까지 <b>'+(fdDone+sdDone)+'</b>개 게시 완료 · 남음 '+((FD.length+SD.length)-(fdDone+sdDone));
 document.getElementById('fdone').innerHTML='완료 '+fdDone+'/'+FD.length;
 document.getElementById('sdone').innerHTML='완료 '+sdDone+'/'+SD.length;
 document.getElementById('todaySlots').innerHTML=
-  bigSlot(storyOf(today,'am'),today,10,'🌅 10시 스토리','story')+
-  bigSlot(feedOf(today),today,14,'📷 14시 피드','feed')+
-  bigSlot(storyOf(today,'pm'),today,16,'🌙 16시 스토리','story');
+  bigSlot(storyOf(today,'am'),today,11,'🌅 11:30 스토리','story')+
+  bigSlot(feedOf(today),today,13,'📷 13시 피드','feed')+
+  bigSlot(storyOf(today,'pm'),today,17,'🌙 17:30 스토리','story');
 function mini(item,kind){if(!item)return '<span class="x">—</span>';var m=item.vid?'<video src="'+item.thumb+'" muted preload="metadata"></video>':'<img src="'+item.thumb+'">';return '<span class="'+kind+'"><span class="mph">'+m+'</span></span>';}
 var tdt=new Date(tmr+'T00:00:00');
 document.getElementById('tmrBox').innerHTML='<div class="tt">내일 '+tmr.slice(5).replace('-','/')+' ('+wd[tdt.getDay()]+')</div><div class="tmini">'+
-  '10시 '+mini(storyOf(tmr,'am'),'story')+' &nbsp; 14시 '+mini(feedOf(tmr),'feed')+' &nbsp; 16시 '+mini(storyOf(tmr,'pm'),'story')+'</div>';
+  '11:30 '+mini(storyOf(tmr,'am'),'story')+' &nbsp; 13시 '+mini(feedOf(tmr),'feed')+' &nbsp; 17:30 '+mini(storyOf(tmr,'pm'),'story')+'</div>';
 </script></body></html>
